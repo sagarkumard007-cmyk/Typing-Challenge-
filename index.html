@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Typing Challenge</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Keep the page content centered and readable on wide screens. -->
+    <div class="container">
+        <!-- The header contains the app name and the light/dark theme button. -->
+        <header class="navbar">
+            <a href="#" class="brand">
+                <span class="brand-icon">⌨</span>
+                <span>Typing<span class="accent">Challenge</span></span>
+            </a>
+
+            <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle color theme">
+                ☀️
+            </button>
+        </header>
+
+        <main>
+            <!-- Introduce the page and explain what the visitor can practice. -->
+            <section class="hero">
+                <p class="eyebrow">TYPING PRACTICE</p>
+                <h1>Build your typing speed</h1>
+                <p class="hero-description">
+            </section>
+
+            <!-- These values update while the test runs and when it ends. -->
+            <section class="stats" aria-label="Typing test results">
+                <article class="stat-card">
+                    <p>Speed</p>
+                    <h2><span id="wpmValue">--</span> <small>WPM</small></h2>
+                </article>
+
+                <article class="stat-card">
+                    <p>Accuracy</p>
+                    <h2><span id="accuracyValue">--</span>%</h2>
+                </article>
+
+                <article class="stat-card">
+                    <p id="timeLabel">Time left</p>
+                    <h2><span id="timeValue">60</span> <small>sec</small></h2>
+                </article>
+            </section>
+
+            <!-- The typing passage, test button, instructions, and final results. -->
+            <section class="typing-card">
+                <div class="section-heading">
+                    <h2>Typing Test</h2>
+                    <span class="level">Beginner</span>
+                </div>
+
+                <p id="textDisplay" class="text-display" role="textbox" aria-multiline="false"
+                    aria-label="Typing passage. Start the test, then type the displayed text here."
+                    aria-disabled="true" contenteditable="false" tabindex="0"></p>
+
+                <button class="start-btn" id="startBtn" type="button">
+                    Start Test
+                </button>
+
+                <p id="typingFeedback" class="typing-feedback" role="status" aria-live="polite">
+                    Click Start Test, then type the passage above.
+                </p>
+
+                <section id="resultBanner" class="result-banner" aria-live="polite" hidden>
+                    <h3>Test complete</h3>
+                    <p id="resultSummary"></p>
+                </section>
+
+            </section>
+        </main>
+
+        <!-- A short footer keeps the page welcoming without distracting from the test. -->
+        <footer class="footer">
+            Built to help you type better, one word at a time.
+        </footer>
+
+    </div>
+    <script src="script.js" defer></script>
+
+</body>
+
+</html>

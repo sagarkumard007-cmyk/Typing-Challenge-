@@ -1,0 +1,316 @@
+
+/* The dark colors are the fallback; JavaScript adds .light-theme on first visit. */
+:root {
+  --bg: #0b1020;
+  --surface: #151c30;
+  --text: #f8fafc;
+  --muted: #9ca3af;
+  --accent: #7c6cf0;
+  --border: #283149;
+}
+
+/* The light theme uses familiar white cards and dark text for easy reading. */
+body.light-theme {
+  --bg: #f4f6fb;
+  --surface: #ffffff;
+  --text: #111827;
+  --muted: #64748b;
+  --accent: #6655e8;
+  --border: #e2e8f0;
+}
+
+/* Remove browser defaults so spacing behaves consistently across elements. */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Basic page styles shared by every section. */
+body {
+  font-family: Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  transition: background 0.3s, color 0.3s;
+}
+
+/* Keep the page a comfortable reading width and center it in the browser. */
+.container {
+  width: min(820px, 92%);
+  margin: 0 auto;
+}
+
+/* Header: app name on the left and the theme button on the right. */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+/* Brand styles keep the app name visually distinct from the page content. */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text);
+  text-decoration: none;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.brand-icon {
+  background: var(--accent);
+  padding: 9px;
+  border-radius: 10px;
+  color: white;
+}
+
+/* Use one accent color for important labels and interactive elements. */
+.accent {
+  color: var(--accent);
+}
+
+/* Small button for switching between the light and dark color themes. */
+.theme-toggle {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  padding: 10px 14px;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+/* Introductory heading and short explanation of the typing exercise. */
+.hero {
+  text-align: left;
+  padding: 38px 0 22px;
+}
+
+.eyebrow {
+  color: var(--accent);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  margin-bottom: 18px;
+}
+
+.hero h1 {
+  font-size: clamp(2rem, 5vw, 2.8rem);
+  margin-bottom: 12px;
+}
+
+.hero-description {
+  color: var(--muted);
+  line-height: 1.7;
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+/* Show speed, accuracy, and time as three simple summary cards. */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin: 8px 0;
+}
+
+/* Shared card appearance keeps the results and test area visually consistent. */
+.stat-card,
+.typing-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgb(0 0 0 / 5%);
+}
+
+.stat-card p {
+  color: var(--muted);
+  margin-bottom: 12px;
+}
+
+.stat-card h2 {
+  font-size: 1.8rem;
+}
+
+.stat-card small {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+/* Main test panel: heading, passage, button, and live instructions. */
+.typing-card {
+  margin-top: 16px;
+}
+
+/* Keep the test title and beginner label on one row when there is space. */
+.section-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.level {
+  color: var(--accent);
+  background: var(--bg);
+  padding: 8px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+}
+
+/* The passage uses a monospace font so each typed character is easy to compare. */
+.text-display {
+  min-height: 120px;
+  color: var(--muted);
+  font-family: Consolas, "Courier New", monospace;
+  font-size: 1.05rem;
+  line-height: 2;
+  overflow-wrap: anywhere;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  cursor: text;
+}
+
+/* Show a clear focus outline when the passage is ready for typing. */
+.text-display:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 6px;
+}
+
+/* Green marks correct characters and red marks characters that need fixing. */
+.text-display .correct {
+  color: #22c55e;
+}
+
+.text-display .incorrect {
+  color: #ef4444;
+  background: rgb(239 68 68 / 14%);
+  border-radius: 3px;
+}
+
+/* A blinking line shows where the next character will appear. */
+.text-display .current {
+  border-left: 2px solid var(--accent);
+  animation: cursor-blink 1s steps(2, start) infinite;
+}
+
+/* Make the cursor line blink without using JavaScript. */
+@keyframes cursor-blink {
+  to {
+    border-color: transparent;
+  }
+}
+
+/* The main action button starts or restarts the typing test. */
+.start-btn {
+  width: 100%;
+  border: none;
+  border-radius: 12px;
+  background: var(--accent);
+  color: white;
+  font-size: 1rem;
+  font-weight: 700;
+  padding: 15px;
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.2s;
+}
+
+/* Add a small hover effect only when the button can be clicked. */
+.start-btn:hover:not(:disabled) {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+/* Keyboard users can see which button currently has focus. */
+.theme-toggle:focus-visible,
+.start-btn:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* Live progress instructions and the final result message. */
+.typing-feedback {
+  min-height: 1.5em;
+  color: var(--muted);
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.result-banner {
+  margin-top: 20px;
+  padding: 18px 20px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--bg);
+  text-align: center;
+}
+
+.result-banner[hidden] {
+  display: none;
+}
+
+.result-banner h3 {
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+
+.result-banner p {
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+/* Small footer text sits below the typing test. */
+.footer {
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.85rem;
+  padding: 35px 0;
+}
+
+/* Stack and tighten content slightly on narrow phone screens. */
+@media (max-width: 600px) {
+  .hero {
+    padding: 45px 0 25px;
+  }
+
+  .stats {
+    gap: 10px;
+  }
+
+  .stat-card {
+    padding: 14px 10px;
+  }
+
+  .stat-card h2 {
+    font-size: 1.3rem;
+  }
+
+  .typing-card {
+    padding: 18px;
+  }
+
+  .section-heading {
+    align-items: flex-start;
+  }
+
+  .text-display {
+    min-height: 180px;
+    font-size: 0.95rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
